@@ -10,127 +10,166 @@ public class Puzzle {
     }
 
     public void start() {
-
-        No no = new No(matrizProblema);
-        int[] m = Matriz.findZero(matrizProblema);
-
-        int linha = m[0];
-        int coluna = m[1];
-
-        No noAux = null;
-        int novaMatriz[][] = null;
+        System.out.println("Matriz problema: ");
         Matriz.print(matrizProblema);
-        if (linha == 0 && coluna == 0) {
-            novaMatriz = Matriz.permute(linha, coluna, linha, coluna + 1, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
 
-            novaMatriz = Matriz.permute(linha, coluna, linha + 1, coluna, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-        }
-        if (linha == 0 && coluna == 1) {
-            novaMatriz = Matriz.permute(linha, coluna, linha, coluna - 1, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
+        No no = new No(null, matrizProblema);
 
-            novaMatriz = Matriz.permute(linha, coluna, linha + 1, coluna, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
+        no = gerarFilhos(no);
 
-            novaMatriz = Matriz.permute(linha, coluna, linha, coluna + 1, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-        }
-        if (linha == 0 && coluna == 2) {
-            novaMatriz = Matriz.permute(linha, coluna, linha, coluna - 1, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
+        while (no.getFilhos().size() != 0) {
+            No noFilho = no.getFilhos().get(0);
+            System.out.println("Filho " + no.getFilhos().size());
+            no.getFilhos().remove(0);
+            gerarFilhos(noFilho);
 
-            novaMatriz = Matriz.permute(linha, coluna, linha + 1, coluna, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
 
         }
-        if (linha == 1 && coluna == 0) {
-            novaMatriz = Matriz.permute(linha, coluna, linha, coluna + 1, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-
-            novaMatriz = Matriz.permute(linha, coluna, linha + 1, coluna, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-
-            novaMatriz = Matriz.permute(linha, coluna, linha - 1, coluna, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-
-        }
-        if (linha == 1 && coluna == 1) {
-            novaMatriz = Matriz.permute(linha, coluna, linha - 1, coluna, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-
-            novaMatriz = Matriz.permute(linha, coluna, linha + 1, coluna, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-
-            novaMatriz = Matriz.permute(linha, coluna, linha, coluna + 1, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-
-            novaMatriz = Matriz.permute(linha, coluna, linha, coluna - 1, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-        }
-        if (linha == 1 && coluna == 2) {
-            novaMatriz = Matriz.permute(linha, coluna, linha, coluna - 1, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-
-            novaMatriz = Matriz.permute(linha, coluna, linha + 1, coluna, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-
-            novaMatriz = Matriz.permute(linha, coluna, linha - 1, coluna, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-        }
-        if (linha == 2 && coluna == 0) {
-            novaMatriz = Matriz.permute(linha, coluna, linha, coluna + 1, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-
-            novaMatriz = Matriz.permute(linha, coluna, linha - 1, coluna, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-        }
-        if (linha == 2 && coluna == 1) {
-            novaMatriz = Matriz.permute(linha, coluna, linha, coluna - 1, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-
-            novaMatriz = Matriz.permute(linha, coluna, linha - 1, coluna, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-
-            novaMatriz = Matriz.permute(linha, coluna, linha, coluna + 1, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-        }
-        if (linha == 2 && coluna == 2) {
-            novaMatriz = Matriz.permute(linha, coluna, linha, coluna - 1, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-
-            novaMatriz = Matriz.permute(linha, coluna, linha - 1, coluna, matrizProblema);
-            noAux = new No(novaMatriz);
-            no.addFilhos(noAux);
-        }
-//        Matriz.print(matrizProblema);
 
 
     }
 
+    private No gerarFilhos(No no) {
+        int[] m = Matriz.findZero(no.getMatrizProblema());
+
+        int linha = m[0];
+        int coluna = m[1];
+        No noAux = null;
+        int novaMatriz[][] = null;
+        if (linha == 0 && coluna == 0) {
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha, coluna + 1, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha + 1, coluna, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+        }
+        if (linha == 0 && coluna == 1) {
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha, coluna - 1, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha + 1, coluna, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha, coluna + 1, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+        }
+        if (linha == 0 && coluna == 2) {
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha, coluna - 1, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha + 1, coluna, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+        }
+        if (linha == 1 && coluna == 0) {
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha, coluna + 1, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha + 1, coluna, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha - 1, coluna, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+        }
+        if (linha == 1 && coluna == 1) {
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha - 1, coluna, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha, coluna + 1, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha + 1, coluna, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha, coluna - 1, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+        }
+        if (linha == 1 && coluna == 2) {
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha, coluna - 1, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha + 1, coluna, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha - 1, coluna, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+        }
+        if (linha == 2 && coluna == 0) {
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha, coluna + 1, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha - 1, coluna, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+        }
+        if (linha == 2 && coluna == 1) {
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha, coluna - 1, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha - 1, coluna, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha, coluna + 1, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+        }
+        if (linha == 2 && coluna == 2) {
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha, coluna - 1, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+
+            novaMatriz = Matriz.clone(no.getMatrizProblema());
+            novaMatriz = Matriz.permute(linha, coluna, linha - 1, coluna, novaMatriz);
+            noAux = new No(no, novaMatriz);
+            no.addFilho(noAux);
+        }
+        no.printFilhos();
+        return no;
+
+    }
 
 }
