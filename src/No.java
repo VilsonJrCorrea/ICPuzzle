@@ -33,4 +33,8 @@ public class No {
     public List<No> getFilhos() {
         return filhos;
     }
+
+    public No getNoPai() {
+        return noPai;
+    }
 }

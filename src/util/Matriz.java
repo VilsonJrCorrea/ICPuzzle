@@ -50,4 +50,34 @@ public class Matriz {
         }
         return novaMatriz;
     }
+
+    public static boolean isEquals(int[][] matrizProblema, int[][] matrizSolucao) {
+        boolean eIgual = true;
+        String a = "";
+        String b = "";
+        for (int i = 0; i < matrizProblema.length; i++) {
+            for (int j = 0; j < matrizProblema.length; j++) {
+                a = a + matrizProblema[i][j] + " ";
+                b = b + matrizSolucao[i][j] + " ";
+
+                if (matrizProblema[i][j] != matrizSolucao[i][j]) {
+                    eIgual = false;
+                }
+            }
+        }
+        //System.out.println("Comparacao " +eIgual+" de "+a+" | "+b);
+        return eIgual;
+    }
+
+    public static String concatResult(String r, int[][] matrizSolucao) {
+        String aux = "";
+        for (int i = 0; i < matrizSolucao.length; i++) {
+            for (int j = 0; j < matrizSolucao.length; j++) {
+                aux = aux + matrizSolucao[i][j]+"  ";
+            }
+            aux = aux + "\n";
+        }
+        r = aux + "\n" + r;
+        return r;
+    }
 }
